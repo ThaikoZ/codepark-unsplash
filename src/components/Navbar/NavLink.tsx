@@ -12,10 +12,12 @@ const NavLink = ({ children, href }: Props) => {
       p="2"
       fontWeight="500"
       _hover={{ textDecoration: "none", color: "#111" }}
-      overflow="hidden"
       whiteSpace="nowrap"
+      marginTop="25px"
+      height="60px"
     >
       {children}
+      {false && <div className="underline--selected"></div>}
     </Link>
   );
 };

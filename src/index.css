@@ -9,5 +9,6 @@ body {
   font-size: 14px;
 }
 form {
+  font-weight: 400;
   width: 100%;
 }

@@ -12,7 +12,7 @@ const SearchInput = () => {
       }}
     >
       <InputGroup>
-        <InputLeftElement fontSize="md" children={<BsSearch />} />
+        <InputLeftElement fontSize="sm" children={<BsSearch />} />
         <Input
           ref={ref}
           placeholder="Search high-resolution images"
@@ -27,6 +27,7 @@ const SearchInput = () => {
         />
       </InputGroup>
       {/* TODO: Panel with a search hints */}
+      {/* TODO: Searchin query */}
     </form>
   );
 };

@@ -19,10 +19,10 @@ const Navbar = () => {
         </HStack>
       </HStack>
       <HStack
-        paddingY="10px"
         gap="15px"
         justifyContent={"space-between"}
         height="50%"
+        maxWidth="93vw"
       >
         <Topics />
       </HStack>

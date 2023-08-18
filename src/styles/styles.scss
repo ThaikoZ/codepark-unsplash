@@ -2,12 +2,40 @@
   border-left: 1px solid #d1d1d1;
   height: 35px;
   position: relative;
+  top: 25px;
   margin: 0 10px;
 }
+
 .featured__text {
   font-weight: 500;
   font-size: 9px;
   position: absolute;
-  left: 267px;
+  left: 283px;
   top: 63px;
+}
+
+.underline--selected {
+  position: relative;
+  border-bottom: 2px solid #111;
+  border-radius: 4rem;
+  top: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .featured__text {
+    left: 283px;
+    top: 68px;
+  }
+  .underline--selected {
+    border-radius: 4rem;
+    top: 16px;
+  }
+}
+
+// Hero Section
+.hero__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
