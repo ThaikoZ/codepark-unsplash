@@ -1,5 +1,5 @@
 import { Box, Center, Flex, Heading } from "@chakra-ui/react";
-import background from "../../assets/background.webp";
+import background from "../../assets/background.avif";
 import SearchInput from "./SearchInput";
 const Hero = () => {
   return (
@@ -16,11 +16,18 @@ const Hero = () => {
           fontSize="40px"
           marginTop="-40px"
           paddingBottom="15px"
+          letterSpacing="1px"
           color="#fff"
+          lineHeight="3.2rem"
         >
           Unsplash
         </Heading>
-        <Box paddingBottom="25px" color="#fff" fontSize="14px">
+        <Box
+          paddingBottom="1.5rem"
+          color="#fff"
+          fontSize="16px"
+          fontWeight="400"
+        >
           The internet’s source for visuals.
           <br /> Powered by creators everywhere.
         </Box>

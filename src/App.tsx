@@ -17,7 +17,7 @@ function App() {
         <Navbar />
       </GridItem>
 
-      <GridItem px="2" area={"main"}>
+      <GridItem area={"main"}>
         <Hero />
       </GridItem>
       <GridItem pl="2" bg="blue.300" area={"photos"}>

@@ -6,12 +6,20 @@
   margin: 0 10px;
 }
 
+.input__vl {
+  border-right: 1px solid #d1d1d1;
+  height: 25px;
+  position: relative;
+  left: 10px;
+}
+
+// Topics bar
 .featured__text {
   font-weight: 500;
   font-size: 9px;
   position: absolute;
-  left: 283px;
-  top: 63px;
+  left: 278px;
+  top: 64px;
 }
 
 .underline--selected {
@@ -23,7 +31,6 @@
 
 @media screen and (min-width: 768px) {
   .featured__text {
-    left: 283px;
     top: 68px;
   }
   .underline--selected {
