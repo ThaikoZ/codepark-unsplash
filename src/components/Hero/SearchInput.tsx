@@ -3,24 +3,23 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useBoolean } from "@chakra-ui/react";
 import { BsSearch, BsX } from "react-icons/bs";
 import { FaQrcode } from "react-icons/fa";
-import SearchHelpPanel from "../SearchHelpPanel";
+import SearchHelpPanel from "./SearchHelpPanel";
 
 const SearchInput = () => {
   const [query, setQuery] = useState("");
-  const [isFocuesd, setFocues] = useBoolean(false);
-  // const { onOpen, onClose } = useDisclosure();
+  const [isFocuesd, setFocused] = useState(false);
+
   const handleSubmit = () => {
     console.log("Searcing " + query);
   };
+
   return (
     <form
-      // TODO: Zmienić format z on Submit na on Change
+      // TODO: Refactor outline transition and width
       onSubmit={handleSubmit}
     >
       <InputGroup
@@ -48,10 +47,6 @@ const SearchInput = () => {
           <BsSearch />
         </InputLeftElement>
         <Input
-          onChange={(event) => {
-            setQuery(event.target.value);
-            console.log(query);
-          }}
           value={query}
           required
           placeholder="Search high-resolution images"
@@ -60,6 +55,7 @@ const SearchInput = () => {
           outline="4px solid rgba(0, 0, 0, 0.0)"
           color="#111"
           fontSize="14px"
+          maxLength={23}
           bg="#f5f5f5"
           outlineOffset="0"
           borderRadius="0.5rem"
@@ -67,12 +63,19 @@ const SearchInput = () => {
             bg: "#f5f5f5",
           }}
           _focus={{
-            outlineColor: "rgba(0, 0, 0, 0.2)",
+            outlineColor: "rgba(0, 0, 0, 0.5)",
             bg: "#fff",
             border: "0",
             transition: "outline-color 0.3s",
           }}
           _placeholder={{ color: "#767676" }}
+          onChange={(event) => setQuery(event.target.value)}
+          onFocus={() => {
+            setFocused(true);
+          }}
+          onBlur={() => {
+            setFocused(false);
+          }}
         />
         {query && (
           <>
@@ -106,7 +109,15 @@ const SearchInput = () => {
           children={<FaQrcode />}
         />
       </InputGroup>
-      {isFocuesd && <SearchHelpPanel />}
+      {isFocuesd && query.length > 2 && (
+        <SearchHelpPanel
+          barWidth="2xl"
+          searchQuery={query}
+          onItemClick={(name) => {
+            console.log(name);
+          }}
+        />
+      )}
     </form>
   );
 };

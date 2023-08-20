@@ -3,7 +3,7 @@ import NavLink from "./NavLink";
 import useTopics from "../../hooks/useTopics";
 
 const Topics = () => {
-  const { featured, error } = useTopics();
+  const { topics, error, isLoading } = useTopics();
 
   return (
     <Flex as="nav" gap="4px" overflow="hidden">
@@ -13,7 +13,7 @@ const Topics = () => {
       <div className="vl"></div>
       <div className="featured__text">Featured</div>
       {/* TODO: Add functionality on click */}
-      {featured?.map((topic) => (
+      {topics?.map((topic) => (
         <NavLink href="#" key={topic.id}>
           {topic.title}
         </NavLink>

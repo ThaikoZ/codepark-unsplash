@@ -1,8 +1,14 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero/Hero";
+import { Searches } from "./hooks/useSearches";
 
 function App() {
+  interface Query {
+    searchQuery: Searches;
+    selectedTopic: string;
+  }
+
   return (
     <Grid
       templateAreas={`"navbar"
