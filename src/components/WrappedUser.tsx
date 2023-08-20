@@ -1,4 +1,4 @@
-import user from "../../assets/user.avif";
+import user from "../assets/user.avif";
 import {
   Menu,
   MenuButton,
@@ -8,19 +8,13 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 
-const CollapsedUser = () => {
+const WrappedUser = () => {
   return (
     <>
       <Menu>
-        <MenuButton
-          aria-label="Options"
-          _hover={{ bg: "white" }}
-          _active={{ bg: "white" }}
-          width="32px"
-        >
+        <MenuButton aria-label="Options" bg="none" fontSize="xl">
           <Image src={user} borderRadius="full" border="1px solid #eee" />
         </MenuButton>
-        {/* TODO: Menu of items */}
         <MenuList>
           <MenuItem>View profile</MenuItem>
           <MenuItem>Stats</MenuItem>
@@ -33,4 +27,4 @@ const CollapsedUser = () => {
   );
 };
 
-export default CollapsedUser;
+export default WrappedUser;

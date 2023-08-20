@@ -1,7 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero/Hero";
 import { Searches } from "./hooks/useSearches";
+import Topics from "./components/Topics";
 
 function App() {
   interface Query {
@@ -14,18 +14,17 @@ function App() {
       templateAreas={`"navbar"
                   "main"
                   "photos"`}
-      gridTemplateRows={{ base: "112px 310px 1fr", md: "118px 593px 1fr" }}
-      gridTemplateColumns={"1fr"}
+      gridTemplateRows={"118px 593px 1fr"}
+      gridTemplateColumns={"100vw"}
       color="#767676"
       fontWeight="bold"
     >
-      <GridItem px="2" area={"navbar"}>
+      <GridItem area={"navbar"}>
         <Navbar />
+        <Topics />
       </GridItem>
 
-      <GridItem area={"main"}>
-        <Hero />
-      </GridItem>
+      <GridItem area={"main"}>Center</GridItem>
       <GridItem pl="2" bg="blue.300" area={"photos"}>
         Photos
       </GridItem>

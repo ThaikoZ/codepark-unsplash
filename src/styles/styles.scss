@@ -1,25 +1,17 @@
+// Topics Section
 .vl {
   border-left: 1px solid #d1d1d1;
   height: 35px;
   position: relative;
-  top: 25px;
   margin: 0 10px;
 }
 
-.input__vl {
-  border-right: 1px solid #d1d1d1;
-  height: 25px;
-  position: relative;
-  left: 10px;
-}
-
-// Topics bar
 .featured__text {
   font-weight: 500;
   font-size: 9px;
   position: absolute;
-  left: 278px;
-  top: 64px;
+  left: 270px;
+  top: 70px;
 }
 
 .underline--selected {
@@ -27,16 +19,6 @@
   border-bottom: 2px solid #111;
   border-radius: 4rem;
   top: 15px;
-}
-
-@media screen and (min-width: 768px) {
-  .featured__text {
-    top: 68px;
-  }
-  .underline--selected {
-    border-radius: 4rem;
-    top: 16px;
-  }
 }
 
 // Hero Section
