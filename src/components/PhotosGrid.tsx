@@ -1,19 +1,26 @@
 import { Box, Flex, Grid, Image } from "@chakra-ui/react";
-import usePhotos, { Photos } from "../hooks/usePhotos";
+import usePhotos, { Photo } from "../hooks/usePhotos";
 import { useEffect, useState } from "react";
+import ImageTile from "./ImageTile";
 
 interface Columns {
-  column1: string[];
-  column2: string[];
-  column3: string[];
+  column1: Photo[];
+  column2: Photo[];
+  column3: Photo[];
 }
 
 const PhotosGrid = () => {
   const { data, error, isLoading } = usePhotos();
   const [columns, setColums] = useState<Columns>();
 
-  const splitToColumns = (data: Photos[]) => {
-    const photos = [...data.map((img) => img.urls.regular)];
+  const splitToColumns = () => {
+    const photos = data.map((item) => ({
+      id: item.id,
+      url: item.urls.regular,
+      first_name: item.user.first_name,
+      last_name: item.user.last_name,
+      profile_image: item.user.profile_image.small,
+    }));
 
     const parts = parseInt((photos.length / 3).toFixed(0));
 
@@ -41,37 +48,35 @@ const PhotosGrid = () => {
   };
 
   useEffect(() => {
-    splitToColumns(data);
+    splitToColumns();
   }, [data]);
 
+  // TODO: Photos should load infinite while scrolling with React Query.
+  // TODO: Photo grid on base width is not showing properly. To big gap beetwen columns
   return (
-    <Flex
-      justifyContent="center"
-      marginTop="48px"
-      marginLeft="24px"
-      marginRight="42px"
-      height="100%"
-    >
+    <Flex justifyContent="center" marginTop="24px" marginX="24px" height="100%">
       <Grid
-        templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+        templateColumns={{
+          base: "1fr",
+          md: "repeat(3, 1fr)",
+        }}
         templateRows={"1fr"}
         maxWidth="1280px"
         gap="24px"
       >
         <Box>
-          {/* TODO: Img */}
           {columns?.column1.map((link) => (
-            <Image marginBottom="24px" src={link} />
+            <ImageTile key={link.id} src={link} />
           ))}
         </Box>
         <Box>
           {columns?.column2.map((link) => (
-            <Image marginBottom="24px" src={link} />
+            <ImageTile key={link.id} src={link} />
           ))}
         </Box>
         <Box>
           {columns?.column3.map((link) => (
-            <Image marginBottom="24px" src={link} />
+            <ImageTile key={link.id} src={link} />
           ))}
         </Box>
       </Grid>

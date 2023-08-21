@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import photos from "../data/photos";
 
-export interface Photos {
+export interface Photo {
   id: string;
-  urls: {
-    regular: string;
-  };
+  url: string;
+  first_name: string;
+  last_name: string | null;
+  profile_image: string;
 }
 
 const usePhotos = () => {

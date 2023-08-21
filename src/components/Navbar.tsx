@@ -1,9 +1,10 @@
-import { Box, HStack, Image } from "@chakra-ui/react";
-import logo from "../assets/logo.png";
+import { Box, HStack } from "@chakra-ui/react";
 import WrappedMenu from "./WrappedMenu";
 import WrappedUser from "./WrappedUser";
 import WrappedNotifications from "./WrappedNotifications";
 import SearchInput from "./SearchInput";
+import Logo from "./Logo";
+
 const Navbar = () => {
   return (
     <HStack
@@ -12,7 +13,7 @@ const Navbar = () => {
       height="50%"
       justifyContent="space-between"
     >
-      <Image title="Unsplash Home" src={logo} boxSize="32px" cursor="pointer" />
+      <Logo />
       <Box width="100%">
         <SearchInput
           barWidth="100%"
