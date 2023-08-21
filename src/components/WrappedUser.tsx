@@ -16,6 +16,7 @@ const WrappedUser = () => {
           aria-label="Options"
           bg="none"
           fontSize="xl"
+          width="32px"
           title="User settings"
         >
           <Image src={user} borderRadius="full" border="1px solid #eee" />

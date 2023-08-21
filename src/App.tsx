@@ -2,7 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 // import { Searches } from "./hooks/useSearches";
 import Topics from "./components/Topics";
-import HeroBanner from "./HeroBanner";
+import HeroBanner from "./components/HeroBanner";
 
 function App() {
   // Possible refactor

@@ -7,6 +7,20 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
   config,
+  components: {
+    Popover: {
+      baseStyle: {
+        motion: {
+          enter: {
+            transition: "none",
+          },
+          exit: {
+            transition: "none",
+          },
+        },
+      },
+    },
+  },
 });
 
 export default theme;

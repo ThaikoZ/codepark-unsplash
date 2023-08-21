@@ -1,6 +1,6 @@
 import { Center, Text, Flex, Heading } from "@chakra-ui/react";
-import heroBg from "./assets/background.avif";
-import SearchInput from "./components/SearchInput";
+import heroBg from "../assets/background.avif";
+import SearchInput from "./SearchInput";
 
 const HeroBanner = () => {
   const barWidth = "65vw";

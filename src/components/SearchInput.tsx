@@ -16,21 +16,25 @@ import {
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { BsX, BsQrCodeScan } from "react-icons/bs";
-import useSearches from "../hooks/useSearches";
+import useSearch from "../hooks/useSearch";
 
 interface Props {
   barWidth: string;
   bgInActive?: string;
   borderRadius?: string;
+  borderColor?: string;
+  height?: string;
+  outline?: string;
+  fontWeight?: string;
 }
 
 // TODO: React query for fetching the data
 // TODO: Second search input in a navbar
 
-const SearchInput = ({ barWidth }: Props) => {
+const SearchInput = (style: Props) => {
   const [query, setQuery] = useState("");
   const [isPopover, setPopover] = useBoolean(false);
-  const { tags } = useSearches(query);
+  const { tags } = useSearch(query.length >= 2 ? query : "");
 
   const handleSubmit = (word?: string) => {
     console.log("Sent to the server: " + (word || query || null));
@@ -38,6 +42,7 @@ const SearchInput = ({ barWidth }: Props) => {
 
   const handleQrCode = () => {
     console.log("scanning document");
+    console.log(tags);
   };
 
   return (
@@ -48,15 +53,16 @@ const SearchInput = ({ barWidth }: Props) => {
       }}
     >
       <Popover
-        isOpen={query.length > 2 && isPopover && tags.length > 1}
+        isOpen={isPopover && query.length > 2 && tags.length > 0 && isPopover}
         autoFocus={false}
         flip={false}
+        matchWidth={true}
       >
         <PopoverTrigger>
           <InputGroup
             overflow="hidden"
             borderRadius={5}
-            outline="5px solid rgba(0, 0, 0, 0)"
+            outline={style.outline || "5px solid rgba(0, 0, 0, 0)"}
             transition="outline-color 0.2s ease-in"
             _hover={{
               outlineColor: "rgba(0, 0, 0, 0.1)",
@@ -85,19 +91,20 @@ const SearchInput = ({ barWidth }: Props) => {
               value={query}
               required
               placeholder="Search high-resolution images"
-              height="54px"
-              borderRadius="5"
+              height={style.height || "54px"}
+              borderRadius={style.borderRadius || "5"}
               paddingLeft={12}
               variant="filled"
               fontSize="15px"
-              fontWeight="450"
+              fontWeight={style.fontWeight || "450"}
               color="#111"
-              bg="#eee"
-              border="0px"
+              border="1px solid #eee"
+              bg={style.bgInActive || "#eee"}
               outline="4px solid rgba(0, 0, 0, 0)"
-              _hover={{ bg: "#eee" }}
+              _hover={{ bg: "#eee", borderColor: style.borderColor || "#fff" }}
               _focus={{
                 bg: "#fff",
+                borderColor: style.borderColor || "#fff",
               }}
               _placeholder={{ color: "#767676" }}
             />
@@ -140,7 +147,7 @@ const SearchInput = ({ barWidth }: Props) => {
           </InputGroup>
         </PopoverTrigger>
         <PopoverContent
-          width={barWidth}
+          width={style.barWidth}
           marginTop="-4px"
           border="1px solid #d1d1d1"
         >
