@@ -12,6 +12,7 @@ const WrappedMenu = () => {
     <Menu>
       <MenuButton
         as={IconButton}
+        title="View more links"
         aria-label="Menu"
         icon={<FaBars />}
         fontSize="xl"

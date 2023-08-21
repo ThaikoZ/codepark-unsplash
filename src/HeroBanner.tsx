@@ -3,6 +3,7 @@ import heroBg from "./assets/background.avif";
 import SearchInput from "./components/SearchInput";
 
 const HeroBanner = () => {
+  const barWidth = "65vw";
   return (
     <Center
       height="100%"
@@ -13,7 +14,7 @@ const HeroBanner = () => {
       <Flex
         flexDirection="column"
         height="100%"
-        width="65vw"
+        width={barWidth}
         marginTop={{ base: "0px", md: "-70px" }}
         justifyContent="center"
         color="#fff"
@@ -30,7 +31,7 @@ const HeroBanner = () => {
           The internet’s source for visuals. <br />
           Powered by creators everywhere.
         </Text>
-        <SearchInput />
+        <SearchInput barWidth={barWidth} />
       </Flex>
     </Center>
   );

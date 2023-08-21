@@ -10,21 +10,33 @@ import {
   UnorderedList,
   PopoverContent,
   useBoolean,
+  HStack,
+  Box,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { BsX, BsQrCodeScan } from "react-icons/bs";
+import useSearches from "../hooks/useSearches";
 
-const SearchInput = () => {
-  const ref = useRef<HTMLInputElement>(null);
+interface Props {
+  barWidth: string;
+  bgInActive?: string;
+  borderRadius?: string;
+}
+
+const SearchInput = ({ barWidth }: Props) => {
+  const [query, setQuery] = useState("");
   const [isPopover, setPopover] = useBoolean(false);
+  //const [tags, error, isLoading] = useSearches(query);
+
   const items = ["dwarf", "hanobi", "welcome", "missisipi", "dwarw"];
 
   const handleSubmit = () => {
-    console.log("Sent to the server: " + ref.current?.value);
+    console.log("Sent to the server: " + (query || "Empty"));
   };
 
-  const handleChange = () => {
-    console.log(ref.current?.value);
+  const handleQrCode = () => {
+    console.log("scanning document");
   };
 
   return (
@@ -53,17 +65,19 @@ const SearchInput = () => {
               cursor="pointer"
               onClick={handleSubmit}
               paddingLeft={2}
+              fontSize="md"
               color="#767676"
               _hover={{ color: "#111" }}
               _active={{ color: "#111" }}
-            >
-              <FaSearch color="#767676" />
-            </InputLeftElement>
+              children={<FaSearch />}
+            />
             <Input
-              onChange={handleChange}
+              onFocus={setPopover.toggle}
+              onBlur={setPopover.toggle}
+              onChange={(event) => setQuery(event.target.value)}
               display={{ base: "none", md: "block" }}
-              ref={ref}
               maxLength={40}
+              value={query}
               required
               placeholder="Search high-resolution images"
               height="54px"
@@ -80,25 +94,48 @@ const SearchInput = () => {
               _focus={{
                 bg: "#fff",
               }}
-              onFocus={setPopover.toggle}
-              onBlur={setPopover.toggle}
+              _placeholder={{ color: "#767676" }}
             />
-            <InputRightElement
-              height="100%"
-              width={14}
-              bg="red"
-              cursor="pointer"
-              onClick={handleSubmit}
-              color="#767676"
-              _hover={{ color: "#111" }}
-              _active={{ color: "#111" }}
-            >
-              <FaSearch color="#767676" />
-            </InputRightElement>
+            <HStack bg="red">
+              <InputRightElement
+                display={query ? "flex" : "none"}
+                height="100%"
+                title="Search Unsplash"
+                width={14}
+                cursor="pointer"
+                marginRight="54px"
+                fontSize="xl"
+                onClick={() => setQuery("")}
+                color="#767676"
+                _hover={{ color: "#111" }}
+                _active={{ color: "#111" }}
+                children={<BsX />}
+              />
+
+              <Box
+                display={query ? "flex" : "none"}
+                className="search__vl"
+                borderLeft="1px solid #c2c2c2"
+                height="15px"
+                position="absolute"
+                right="56px"
+              ></Box>
+              <InputRightElement
+                height="100%"
+                title="Visual search"
+                cursor="pointer"
+                fontSize="lg"
+                width="56px"
+                onClick={handleQrCode}
+                color="#767676"
+                _hover={{ color: "#111" }}
+                children={<BsQrCodeScan />}
+              />
+            </HStack>
           </InputGroup>
         </PopoverTrigger>
         <PopoverContent
-          width="65vw"
+          width={barWidth}
           marginTop="-4px"
           border="1px solid #d1d1d1"
         >
@@ -106,6 +143,7 @@ const SearchInput = () => {
             <UnorderedList listStyleType="none" padding="0px" margin="0px">
               {items.map((item) => (
                 <ListItem
+                  key={item}
                   paddingY="9px"
                   paddingX={4}
                   cursor="pointer"

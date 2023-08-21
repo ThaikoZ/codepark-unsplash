@@ -13,6 +13,7 @@ const WrappedNotifications = () => {
     <Menu>
       <MenuButton
         as={IconButton}
+        title="Notifications"
         aria-label="Options"
         variant="ghost"
         color="#767676"

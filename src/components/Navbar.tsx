@@ -12,7 +12,7 @@ const Navbar = () => {
       justifyContent="space-between"
       height="50%"
     >
-      <Image src={logo} boxSize="32px" cursor="pointer" />
+      <Image title="Unsplash Home" src={logo} boxSize="32px" cursor="pointer" />
       <HStack gap={3}>
         <WrappedNotifications />
         <WrappedUser />

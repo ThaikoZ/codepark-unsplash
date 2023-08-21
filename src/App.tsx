@@ -1,14 +1,8 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
-import { Searches } from "./hooks/useSearches";
+// import { Searches } from "./hooks/useSearches";
 import Topics from "./components/Topics";
-import { useState } from "react";
 import HeroBanner from "./HeroBanner";
-
-interface Query {
-  searchQuery: Searches;
-  selectedTopic: string;
-}
 
 function App() {
   // Possible refactor

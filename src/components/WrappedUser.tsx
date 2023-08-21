@@ -12,7 +12,12 @@ const WrappedUser = () => {
   return (
     <>
       <Menu>
-        <MenuButton aria-label="Options" bg="none" fontSize="xl">
+        <MenuButton
+          aria-label="Options"
+          bg="none"
+          fontSize="xl"
+          title="User settings"
+        >
           <Image src={user} borderRadius="full" border="1px solid #eee" />
         </MenuButton>
         <MenuList>
