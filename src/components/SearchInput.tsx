@@ -24,15 +24,16 @@ interface Props {
   borderRadius?: string;
 }
 
+// TODO: React query for fetching the data
+// TODO: Second search input in a navbar
+
 const SearchInput = ({ barWidth }: Props) => {
   const [query, setQuery] = useState("");
   const [isPopover, setPopover] = useBoolean(false);
-  //const [tags, error, isLoading] = useSearches(query);
+  const { tags } = useSearches(query);
 
-  const items = ["dwarf", "hanobi", "welcome", "missisipi", "dwarw"];
-
-  const handleSubmit = () => {
-    console.log("Sent to the server: " + (query || "Empty"));
+  const handleSubmit = (word?: string) => {
+    console.log("Sent to the server: " + (word || query || "Empty"));
   };
 
   const handleQrCode = () => {
@@ -46,7 +47,11 @@ const SearchInput = ({ barWidth }: Props) => {
         handleSubmit();
       }}
     >
-      <Popover isOpen={isPopover} autoFocus={false} flip={false}>
+      <Popover
+        isOpen={query.length > 2 && isPopover}
+        autoFocus={false}
+        flip={false}
+      >
         <PopoverTrigger>
           <InputGroup
             overflow="hidden"
@@ -63,7 +68,7 @@ const SearchInput = ({ barWidth }: Props) => {
             <InputLeftElement
               height="100%"
               cursor="pointer"
-              onClick={handleSubmit}
+              onClick={() => handleSubmit()}
               paddingLeft={2}
               fontSize="md"
               color="#767676"
@@ -141,19 +146,18 @@ const SearchInput = ({ barWidth }: Props) => {
         >
           <PopoverBody paddingX={0}>
             <UnorderedList listStyleType="none" padding="0px" margin="0px">
-              {items.map((item) => (
+              {tags.map((tag) => (
                 <ListItem
-                  key={item}
+                  key={tag}
                   paddingY="9px"
                   paddingX={4}
                   cursor="pointer"
                   _hover={{ bg: "#eee" }}
-                  onClick={() => console.log(item)}
+                  onClick={() => handleSubmit(tag)}
                   color="#111"
                   fontWeight="450"
                 >
-                  {/* TODO: Load items dynamiclly from hook */}
-                  {item}
+                  {tag}
                 </ListItem>
               ))}
             </UnorderedList>
