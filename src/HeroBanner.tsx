@@ -1,14 +1,6 @@
-import {
-  Center,
-  Text,
-  Image,
-  Flex,
-  Box,
-  Heading,
-  HStack,
-  Input,
-} from "@chakra-ui/react";
+import { Center, Text, Flex, Heading } from "@chakra-ui/react";
 import heroBg from "./assets/background.avif";
+import SearchInput from "./components/SearchInput";
 
 const HeroBanner = () => {
   return (
@@ -21,18 +13,24 @@ const HeroBanner = () => {
       <Flex
         flexDirection="column"
         height="100%"
-        width="50vw"
+        width="65vw"
+        marginTop={{ base: "0px", md: "-70px" }}
         justifyContent="center"
         color="#fff"
       >
-        <Heading fontSize="4xl" fontWeight="800">
+        <Heading fontSize="5xl" fontWeight="800">
           Unsplash
         </Heading>
-        <Text marginTop="0.6rem" fontWeight="500" fontSize="15px">
+        <Text
+          marginTop="1rem"
+          marginBottom="1.4rem"
+          fontWeight="500"
+          fontSize="18px"
+        >
           The internet’s source for visuals. <br />
           Powered by creators everywhere.
         </Text>
-        <Input marginTop="1.2rem" />
+        <SearchInput />
       </Flex>
     </Center>
   );
