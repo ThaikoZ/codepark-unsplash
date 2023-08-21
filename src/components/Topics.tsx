@@ -20,6 +20,7 @@ const Topics = () => {
       <NavLink href="#">Unsplash+</NavLink>
       <div className="vl"></div>
       <div className="featured__text">Featured</div>
+      {/* TODO: Scrollable horizontal list */}
       {topics.map((topic) => (
         <NavLink key={topic.id} href="#">
           {topic.title}

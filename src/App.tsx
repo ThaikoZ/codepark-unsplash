@@ -2,6 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Topics from "./components/Topics";
 import HeroBanner from "./components/HeroBanner";
+import PhotosGrid from "./components/PhotosGrid";
 
 function App() {
   return (
@@ -37,8 +38,8 @@ function App() {
       >
         <HeroBanner />
       </GridItem>
-      <GridItem pl="2" bg="blue.300" area={"photos"}>
-        Photos
+      <GridItem area={"photos"}>
+        <PhotosGrid />
       </GridItem>
     </Grid>
   );

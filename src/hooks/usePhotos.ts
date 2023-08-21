@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import topics from "../data/topics";
-interface Topic {
-  id: number;
-  title: string;
+import photos from "../data/photos";
+
+export interface Photos {
+  id: string;
+  urls: {
+    regular: string;
+  };
 }
 
-const useTopics = () => {
+const usePhotos = () => {
   // TODO: React Query to useTopics
-  const [featured, setFeatured] = useState<Topic[]>();
+  //   const [photos, setPhotos] = useState<Photos[]>();
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
@@ -17,9 +20,9 @@ const useTopics = () => {
 
   //   setLoading(true);
   //   apiClient
-  //     .get<Topic[]>("/topics", { signal: controller.signal })
+  //     .get<Photos[]>("/photos", { signal: controller.signal })
   //     .then((res) => {
-  //       setFeatured(res.data);
+  //       setPhotos(res.data);
   //       setLoading(false);
   //     })
   //     .catch((err) => {
@@ -31,7 +34,7 @@ const useTopics = () => {
   // }, []);
 
   // Change topics to featured
-  return { topics, error, isLoading };
+  return { data: photos, error, isLoading };
 };
 
-export default useTopics;
+export default usePhotos;
