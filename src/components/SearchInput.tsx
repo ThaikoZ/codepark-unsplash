@@ -28,9 +28,6 @@ interface Props {
   fontWeight?: string;
 }
 
-// TODO: React query for fetching the data
-// TODO: Second search input in a navbar
-
 const SearchInput = (style: Props) => {
   const [query, setQuery] = useState("");
   const [isPopover, setPopover] = useBoolean(false);
@@ -43,6 +40,11 @@ const SearchInput = (style: Props) => {
   const handleQrCode = () => {
     console.log("scanning document");
     console.log(tags);
+  };
+
+  const noAnim = {
+    //enter: {},
+    exit: {},
   };
 
   return (

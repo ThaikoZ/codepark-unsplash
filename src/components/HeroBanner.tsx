@@ -7,8 +7,9 @@ const HeroBanner = () => {
   return (
     <Center
       height="100%"
-      objectFit="cover"
       width="100%"
+      backgroundRepeat="no-repeat"
+      backgroundSize={"cover"}
       bgImage={heroBg}
       backgroundPosition="center"
     >
@@ -20,7 +21,7 @@ const HeroBanner = () => {
         justifyContent="center"
         color="#fff"
       >
-        <Heading fontSize="5xl" fontWeight="800">
+        <Heading fontSize="5xl" fontWeight="700">
           Unsplash
         </Heading>
         <Text

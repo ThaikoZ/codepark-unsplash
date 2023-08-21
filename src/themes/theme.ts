@@ -1,4 +1,5 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import { menuTheme } from "./menuTheme";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -8,18 +9,8 @@ const config: ThemeConfig = {
 const theme = extendTheme({
   config,
   components: {
-    Popover: {
-      baseStyle: {
-        motion: {
-          enter: {
-            transition: "none",
-          },
-          exit: {
-            transition: "none",
-          },
-        },
-      },
-    },
+    Menu: menuTheme,
+    // Popover: popoverTheme,
   },
 });
 
