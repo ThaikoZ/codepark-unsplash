@@ -33,7 +33,7 @@ const SearchInput = ({ barWidth }: Props) => {
   const { tags } = useSearches(query);
 
   const handleSubmit = (word?: string) => {
-    console.log("Sent to the server: " + (word || query || "Empty"));
+    console.log("Sent to the server: " + (word || query || null));
   };
 
   const handleQrCode = () => {
@@ -48,7 +48,7 @@ const SearchInput = ({ barWidth }: Props) => {
       }}
     >
       <Popover
-        isOpen={query.length > 2 && isPopover}
+        isOpen={query.length > 2 && isPopover && tags.length > 1}
         autoFocus={false}
         flip={false}
       >

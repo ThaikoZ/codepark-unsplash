@@ -8,6 +8,7 @@ const HeroBanner = () => {
     <Center
       height="100%"
       objectFit="cover"
+      width="100%"
       bgImage={heroBg}
       backgroundPosition="center"
     >
