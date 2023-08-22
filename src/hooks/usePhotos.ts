@@ -1,41 +1,40 @@
-import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import photos from "../data/photos";
+import { useInfiniteQuery } from "@tanstack/react-query";
+
+interface User {
+  first_name: string;
+  last_name: string | null;
+  profile_image: { small: string };
+}
 
 export interface Photo {
   id: string;
-  url: string;
-  first_name: string;
-  last_name: string | null;
-  profile_image: string;
+  urls: { regular: string };
+  user: User;
 }
 
-const usePhotos = () => {
-  // TODO: React Query to useTopics
-  //   const [photos, setPhotos] = useState<Photos[]>();
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
+const usePhotos = (pageSize: number = 10) => {
+  const fetchData = ({ pageParam = 1 }) =>
+    apiClient
+      .get<Photo[]>("/photos", {
+        params: {
+          page: (pageParam - 1) * pageSize,
+          per_page: pageSize,
+        },
+      })
+      .then((res) => res.data);
 
-  // useEffect(() => {
-  //   const controller = new AbortController();
-
-  //   setLoading(true);
-  //   apiClient
-  //     .get<Photos[]>("/photos", { signal: controller.signal })
-  //     .then((res) => {
-  //       setPhotos(res.data);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       setError(err);
-  //       setLoading(false);
-  //     });
-
-  //   return () => controller.abort();
-  // }, []);
-
-  // Change topics to featured
-  return { data: photos, error, isLoading };
+  const { data, error, isLoading } = useInfiniteQuery({
+    queryKey: ["photos"],
+    queryFn: fetchData,
+    staleTime: 1 * 60 * 1000, //1m
+    keepPreviousData: true,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length > 0 ? allPages.length + 1 : undefined;
+    },
+  });
+  console.log(data);
+  return { photos: data, error, isLoading };
 };
 
 export default usePhotos;

@@ -1,4 +1,4 @@
-import searchServices, { Search } from "../services/search-services";
+import searchServices, { Search } from "../services/searchServices";
 
 interface SearchTag {
   title: string;

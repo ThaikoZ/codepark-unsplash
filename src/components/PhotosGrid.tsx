@@ -10,46 +10,47 @@ interface Columns {
 }
 
 const PhotosGrid = () => {
-  const { data, error, isLoading } = usePhotos();
+  // FIXME: It doesnt work yet.
+  const { photos, error, isLoading } = usePhotos();
   const [columns, setColums] = useState<Columns>();
 
-  const splitToColumns = () => {
-    const photos = data.map((item) => ({
-      id: item.id,
-      url: item.urls.regular,
-      first_name: item.user.first_name,
-      last_name: item.user.last_name,
-      profile_image: item.user.profile_image.small,
-    }));
+  // const splitToColumns = () => {
+  //   const photos = data.map((item) => ({
+  //     id: item.id,
+  //     url: item.urls.regular,
+  //     first_name: item.user.first_name,
+  //     last_name: item.user.last_name,
+  //     profile_image: item.user.profile_image.small,
+  //   }));
 
-    const parts = parseInt((photos.length / 3).toFixed(0));
+  //   const parts = parseInt((photos.length / 3).toFixed(0));
 
-    const structure: Columns = {
-      column1: [],
-      column2: [],
-      column3: [],
-    };
+  //   const structure: Columns = {
+  //     column1: [],
+  //     column2: [],
+  //     column3: [],
+  //   };
 
-    for (let i = 0, j = 0; i < parts * 3; i++, j++) {
-      if (j === parts) j = 0;
-      switch (j) {
-        case 0:
-          structure.column1.push(photos[i]);
-          break;
-        case 1:
-          structure.column2.push(photos[i]);
-          break;
-        case 2:
-          structure.column3.push(photos[i]);
-      }
-    }
+  //   for (let i = 0, j = 0; i < parts * 3; i++, j++) {
+  //     if (j === parts) j = 0;
+  //     switch (j) {
+  //       case 0:
+  //         structure.column1.push(photos[i]);
+  //         break;
+  //       case 1:
+  //         structure.column2.push(photos[i]);
+  //         break;
+  //       case 2:
+  //         structure.column3.push(photos[i]);
+  //     }
+  //   }
 
-    setColums(structure);
-  };
+  //   setColums(structure);
+  // };
 
-  useEffect(() => {
-    splitToColumns();
-  }, [data]);
+  // useEffect(() => {
+  //   splitToColumns();
+  // }, [data]);
 
   // TODO: Photos should load infinite while scrolling with React Query.
   // TODO: Photo grid on base width is not showing properly. To big gap beetwen columns

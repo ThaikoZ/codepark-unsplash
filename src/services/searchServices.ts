@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import apiClient from "../services/api-client";
+import apiClient from "./api-client";
 
 export interface Search {
   total: number;
