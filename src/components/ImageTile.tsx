@@ -9,7 +9,7 @@ interface Props {
 const ImageTile = ({ src }: Props) => {
   const [isHoverd, setHoverd] = useState(false);
 
-  // TODO: An ImageTile. We need a whole interface for a img tile.
+  // TODO: Add buttons to a hovered tile
   return (
     <Box
       onMouseEnter={() => setHoverd(true)}
