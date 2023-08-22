@@ -1,12 +1,4 @@
-import {
-  Center,
-  Box,
-  Image,
-  Button,
-  HStack,
-  VStack,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { useState } from "react";
 import { Photo } from "../hooks/usePhotos";
 
@@ -23,12 +15,8 @@ const ImageTile = ({ src }: Props) => {
       onMouseEnter={() => setHoverd(true)}
       onMouseLeave={() => setHoverd(false)}
     >
-      {/* <Flex zIndex="10" position="absolute">
-        <Button top="100px" />
-      </Flex> */}
-
       <Image
-        src={src.url}
+        src={src.urls.regular}
         transition="filter 0.1s ease-out"
         filter={isHoverd ? "brightness(80%);" : "none"}
         marginTop="24px"

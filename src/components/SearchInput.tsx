@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { BsX, BsQrCodeScan } from "react-icons/bs";
-import useSearch from "../hooks/useSearch";
+import useTags from "../hooks/useTags";
 
 interface Props {
   barWidth: string;
@@ -29,22 +29,17 @@ interface Props {
 }
 
 const SearchInput = (style: Props) => {
-  const [query, setQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [isPopover, setPopover] = useBoolean(false);
-  const { tags } = useSearch(query.length >= 2 ? query : "");
+  const { tags, error } = useTags(searchQuery);
 
   const handleSubmit = (word?: string) => {
-    console.log("Sent to the server: " + (word || query || null));
+    console.log("Sent to the server: " + (word || searchQuery || null));
   };
 
   const handleQrCode = () => {
     console.log("scanning document");
     console.log(tags);
-  };
-
-  const noAnim = {
-    //enter: {},
-    exit: {},
   };
 
   return (
@@ -55,7 +50,7 @@ const SearchInput = (style: Props) => {
       }}
     >
       <Popover
-        isOpen={isPopover && query.length > 2 && tags.length > 0 && isPopover}
+        isOpen={isPopover && !error && searchQuery.length > 2}
         autoFocus={false}
         flip={false}
         matchWidth={true}
@@ -87,10 +82,10 @@ const SearchInput = (style: Props) => {
             <Input
               onFocus={setPopover.toggle}
               onBlur={setPopover.toggle}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => setSearchQuery(event.target.value)}
               display={{ base: "none", md: "block" }}
               maxLength={40}
-              value={query}
+              value={searchQuery}
               required
               placeholder="Search high-resolution images"
               height={style.height || "54px"}
@@ -112,14 +107,14 @@ const SearchInput = (style: Props) => {
             />
             <HStack bg="red">
               <InputRightElement
-                display={query ? "flex" : "none"}
+                display={searchQuery ? "flex" : "none"}
                 height="100%"
                 title="Search Unsplash"
                 width={14}
                 cursor="pointer"
                 marginRight="54px"
                 fontSize="xl"
-                onClick={() => setQuery("")}
+                onClick={() => setSearchQuery("")}
                 color="#767676"
                 _hover={{ color: "#111" }}
                 _active={{ color: "#111" }}
@@ -127,7 +122,7 @@ const SearchInput = (style: Props) => {
               />
 
               <Box
-                display={query ? "flex" : "none"}
+                display={searchQuery ? "flex" : "none"}
                 className="search__vl"
                 borderLeft="1px solid #c2c2c2"
                 height="15px"

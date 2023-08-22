@@ -1,18 +1,26 @@
-import { Box, Flex, Grid, Image } from "@chakra-ui/react";
-import usePhotos, { Photo } from "../hooks/usePhotos";
-import { useEffect, useState } from "react";
+import { Flex, Grid, Spinner } from "@chakra-ui/react";
+import { useState } from "react";
 import ImageTile from "./ImageTile";
-
-interface Columns {
-  column1: Photo[];
-  column2: Photo[];
-  column3: Photo[];
-}
+import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import usePhotos, { Photo } from "../hooks/usePhotos";
 
 const PhotosGrid = () => {
-  // FIXME: It doesnt work yet.
-  const { photos, error, isLoading } = usePhotos();
-  const [columns, setColums] = useState<Columns>();
+  const pageSize = 10;
+  const { data, error, isLoading, fetchNextPage, hasNextPage } = usePhotos({
+    pageSize,
+  });
+  const [columns, setColumns] = useState<Photo[]>([]);
+
+  if (isLoading) return <Spinner />;
+
+  if (error) return <p>{error.message}</p>;
+
+  const fetchedPhotosCount =
+    data?.pages.reduce((total, page) => total + page.length, 0) || 0;
+
+  // TODO: Custom photo grid layout
+  // TODO: Responsive layout for photos
 
   // const splitToColumns = () => {
   //   const photos = data.map((item) => ({
@@ -52,36 +60,38 @@ const PhotosGrid = () => {
   //   splitToColumns();
   // }, [data]);
 
-  // TODO: Photos should load infinite while scrolling with React Query.
-  // TODO: Photo grid on base width is not showing properly. To big gap beetwen columns
   return (
-    <Flex justifyContent="center" marginTop="24px" marginX="24px" height="100%">
-      <Grid
-        templateColumns={{
-          base: "1fr",
-          md: "repeat(3, 1fr)",
-        }}
-        templateRows={"1fr"}
-        maxWidth="1280px"
-        gap="24px"
+    <InfiniteScroll
+      dataLength={fetchedPhotosCount}
+      hasMore={!!hasNextPage}
+      next={() => fetchNextPage()}
+      loader={<Spinner />}
+    >
+      <Flex
+        justifyContent="center"
+        marginTop="24px"
+        marginX="24px"
+        height="100%"
       >
-        <Box>
-          {columns?.column1.map((link) => (
-            <ImageTile key={link.id} src={link} />
+        <Grid
+          templateColumns={{
+            base: "1fr",
+            md: "repeat(3, 1fr)",
+          }}
+          templateRows={"1fr"}
+          maxWidth="1280px"
+          gap="24px"
+        >
+          {data?.pages.map((page, index) => (
+            <React.Fragment key={index}>
+              {page.map((photo) => (
+                <ImageTile key={photo.id} src={photo} />
+              ))}
+            </React.Fragment>
           ))}
-        </Box>
-        <Box>
-          {columns?.column2.map((link) => (
-            <ImageTile key={link.id} src={link} />
-          ))}
-        </Box>
-        <Box>
-          {columns?.column3.map((link) => (
-            <ImageTile key={link.id} src={link} />
-          ))}
-        </Box>
-      </Grid>
-    </Flex>
+        </Grid>
+      </Flex>
+    </InfiniteScroll>
   );
 };
 

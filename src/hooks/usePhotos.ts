@@ -13,19 +13,23 @@ export interface Photo {
   user: User;
 }
 
-const usePhotos = (pageSize: number = 10) => {
+interface PostQuery {
+  pageSize: number;
+}
+
+const usePhotos = (query: PostQuery) => {
   const fetchData = ({ pageParam = 1 }) =>
     apiClient
       .get<Photo[]>("/photos", {
         params: {
-          page: (pageParam - 1) * pageSize,
-          per_page: pageSize,
+          page: (pageParam - 1) * query.pageSize,
+          per_page: query.pageSize,
         },
       })
       .then((res) => res.data);
 
-  const { data, error, isLoading } = useInfiniteQuery({
-    queryKey: ["photos"],
+  return useInfiniteQuery<Photo[], Error>({
+    queryKey: ["photos", query],
     queryFn: fetchData,
     staleTime: 1 * 60 * 1000, //1m
     keepPreviousData: true,
@@ -33,8 +37,6 @@ const usePhotos = (pageSize: number = 10) => {
       return lastPage.length > 0 ? allPages.length + 1 : undefined;
     },
   });
-  console.log(data);
-  return { photos: data, error, isLoading };
 };
 
 export default usePhotos;
