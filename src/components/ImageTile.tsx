@@ -19,7 +19,7 @@ const ImageTile = ({ src }: Props) => {
         src={src.urls.regular}
         transition="filter 0.1s ease-out"
         filter={isHoverd ? "brightness(80%);" : "none"}
-        marginTop="24px"
+        // marginTop="24px"
         cursor="zoom-in"
       />
     </Box>

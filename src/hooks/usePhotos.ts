@@ -31,7 +31,7 @@ const usePhotos = (query: PostQuery) => {
   return useInfiniteQuery<Photo[], Error>({
     queryKey: ["photos", query],
     queryFn: fetchData,
-    staleTime: 1 * 60 * 1000, //1m
+    staleTime: 24 * 60 * 60 * 1000, //24h
     keepPreviousData: true,
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length > 0 ? allPages.length + 1 : undefined;

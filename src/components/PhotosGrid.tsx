@@ -1,97 +1,123 @@
-import { Flex, Grid, Spinner } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  Box,
+  Button,
+  Center,
+  CircularProgress,
+  Flex,
+  Grid,
+  GridItem,
+  SimpleGrid,
+  Spinner,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import ImageTile from "./ImageTile";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import usePhotos, { Photo } from "../hooks/usePhotos";
+import CustomSpinner from "./CustomSpinner";
+
+// interface Columns {
+//   column1: Photo[];
+//   column2: Photo[];
+//   column3: Photo[];
+//   pagesUsed: number[];
+// }
+
+interface Columns {
+  content: Photo[];
+}
+
+// TODO: Custom photo grid layout
+// TODO: Responsive layout for photos
 
 const PhotosGrid = () => {
-  const pageSize = 10;
+  const pageSize = 12;
   const { data, error, isLoading, fetchNextPage, hasNextPage } = usePhotos({
     pageSize,
   });
-  const [columns, setColumns] = useState<Photo[]>([]);
+  const [columns, setColumns] = useState<Columns[]>([
+    { content: [] },
+    { content: [] },
+    { content: [] },
+  ]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) {
+    return <CustomSpinner />;
+  }
 
   if (error) return <p>{error.message}</p>;
 
   const fetchedPhotosCount =
     data?.pages.reduce((total, page) => total + page.length, 0) || 0;
 
-  // TODO: Custom photo grid layout
-  // TODO: Responsive layout for photos
+  //
+  const splitColumns = () => {
+    // Algorytm sprawdza która strona została dodana do Pages a następnie dodaje jej zawartość funkcją setColumns()
 
-  // const splitToColumns = () => {
-  //   const photos = data.map((item) => ({
-  //     id: item.id,
-  //     url: item.urls.regular,
-  //     first_name: item.user.first_name,
-  //     last_name: item.user.last_name,
-  //     profile_image: item.user.profile_image.small,
-  //   }));
+    const subColumns: Columns[] = [];
 
-  //   const parts = parseInt((photos.length / 3).toFixed(0));
+    let photography = {};
+    // const pageIds = [0];
+    // const columnIds = [0, 1, 2];
 
-  //   const structure: Columns = {
-  //     column1: [],
-  //     column2: [],
-  //     column3: [],
-  //   };
+    // data.pages[0].map((photo, index) => {
+    //   if (index > 7) columnContent.push(photo);
+    // });
 
-  //   for (let i = 0, j = 0; i < parts * 3; i++, j++) {
-  //     if (j === parts) j = 0;
-  //     switch (j) {
-  //       case 0:
-  //         structure.column1.push(photos[i]);
-  //         break;
-  //       case 1:
-  //         structure.column2.push(photos[i]);
-  //         break;
-  //       case 2:
-  //         structure.column3.push(photos[i]);
-  //     }
-  //   }
+    // console.log(columnContent);
 
-  //   setColums(structure);
-  // };
+    const pageIds = [0];
+    // const columnIds = [0, 1, 2];
 
-  // useEffect(() => {
-  //   splitToColumns();
-  // }, [data]);
+    // console.log(data.pages[2][2]);
+
+    [0, 1, 2].map((columnId) => {
+      pageIds.map((pageId) => {
+        const columnContent: Photo[] = [];
+        for (let i = columnId * 4; i < columnId * 4 + 4; i++) {
+          // columnContent.push(data.pages[pageId][i]);
+          columnContent.push({ ...data.pages[pageId][i] });
+        }
+      });
+    });
+
+    setColumns(columns);
+    console.log(columns);
+  };
+  useEffect(() => {
+    splitColumns();
+  }, [data]);
 
   return (
-    <InfiniteScroll
-      dataLength={fetchedPhotosCount}
-      hasMore={!!hasNextPage}
-      next={() => fetchNextPage()}
-      loader={<Spinner />}
-    >
+    // TODO: Dodać infinite scroll
+    // <InfiniteScroll
+    //   dataLength={fetchedPhotosCount}
+    //   hasMore={!!hasNextPage}
+    //   next={() => fetchNextPage()}
+    //   loader={<CustomSpinner />}
+    // >
+    <Center marginTop="48px">
       <Flex
         justifyContent="center"
-        marginTop="24px"
+        bg="red"
         marginX="24px"
         height="100%"
+        maxWidth="1280px"
       >
-        <Grid
-          templateColumns={{
-            base: "1fr",
-            md: "repeat(3, 1fr)",
-          }}
-          templateRows={"1fr"}
-          maxWidth="1280px"
-          gap="24px"
-        >
-          {data?.pages.map((page, index) => (
+        <SimpleGrid columns={3}>
+          {data.pages.map((page, index) => (
             <React.Fragment key={index}>
               {page.map((photo) => (
                 <ImageTile key={photo.id} src={photo} />
               ))}
             </React.Fragment>
           ))}
-        </Grid>
+          <Button onClick={() => fetchNextPage()}>Load More</Button>
+        </SimpleGrid>
       </Flex>
-    </InfiniteScroll>
+    </Center>
+
+    // </InfiniteScroll>
   );
 };
 

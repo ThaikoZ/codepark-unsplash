@@ -17,6 +17,7 @@ const Navbar = () => {
       <Box width="100%">
         <SearchInput
           barWidth="100%"
+          type="navbar"
           borderRadius="full"
           height="38px"
           outline="0px"

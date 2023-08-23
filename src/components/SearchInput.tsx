@@ -20,6 +20,7 @@ import useTags from "../hooks/useTags";
 
 interface Props {
   barWidth: string;
+  type?: string;
   bgInActive?: string;
   borderRadius?: string;
   borderColor?: string;
@@ -58,6 +59,7 @@ const SearchInput = (style: Props) => {
         <PopoverTrigger>
           <InputGroup
             overflow="hidden"
+            minWidth="300px"
             borderRadius={5}
             outline={style.outline || "5px solid rgba(0, 0, 0, 0)"}
             transition="outline-color 0.2s ease-in"
@@ -83,7 +85,11 @@ const SearchInput = (style: Props) => {
               onFocus={setPopover.toggle}
               onBlur={setPopover.toggle}
               onChange={(event) => setSearchQuery(event.target.value)}
-              display={{ base: "none", md: "block" }}
+              display={
+                style.type === "navbar"
+                  ? "block"
+                  : { base: "none", md: "block" }
+              }
               maxLength={40}
               value={searchQuery}
               required
