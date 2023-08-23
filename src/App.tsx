@@ -35,12 +35,7 @@ function App() {
         <Topics />
       </GridItem>
 
-      <GridItem
-        width="100%"
-        height="100%"
-        area={"main"}
-        objectPosition="bottom"
-      >
+      <GridItem width="100%" area={"main"} objectPosition="bottom">
         <HeroBanner />
       </GridItem>
       <GridItem area={"photos"}>
