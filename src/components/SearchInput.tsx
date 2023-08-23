@@ -32,7 +32,8 @@ interface Props {
 const SearchInput = (style: Props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isPopover, setPopover] = useBoolean(false);
-  const { tags, error } = useTags(searchQuery);
+  const { tags, error, isLoading } = useTags(searchQuery);
+  const [searchHints, setSearchHints] = useState<string[]>([]);
 
   const handleSubmit = (word?: string) => {
     console.log("Sent to the server: " + (word || searchQuery || null));

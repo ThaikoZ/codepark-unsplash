@@ -5,12 +5,11 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import usePhotos, { Photo } from "../hooks/usePhotos";
 import CustomSpinner from "./CustomSpinner";
+import useResize from "../hooks/useResize";
 
 interface Column {
   content: Photo[];
 }
-
-// TODO: Responsive layout for photos
 
 const PhotosGrid = () => {
   const pageSize = 12;
@@ -22,6 +21,8 @@ const PhotosGrid = () => {
     { content: [] },
     { content: [] },
   ]);
+
+  const screenSize = useResize();
 
   useEffect(() => {
     splitColumns();
@@ -55,7 +56,6 @@ const PhotosGrid = () => {
     data.pages.reduce((total, page) => total + page.length, 0) || 0;
 
   return (
-    // TODO: Dodać infinite scroll
     <InfiniteScroll
       dataLength={fetchedPhotosCount / 3}
       hasMore={!!hasNextPage}
@@ -72,29 +72,29 @@ const PhotosGrid = () => {
             gap="24px"
             minHeight="100%"
           >
-            {columns.map((column, index) => (
-              <SimpleGrid key={index} columns={1} gap="24px" height="100%">
-                {column.content.map((photo) => (
-                  <ImageTile
-                    key={photo.id + Math.floor(Math.random() * 10000)}
-                    src={photo}
-                  />
-                ))}
-                {/* {index === 0 ? (
-                  <Button onClick={() => fetchNextPage()}>Load More</Button>
-                ) : null} */}
+            {screenSize.width > 700 ? (
+              columns.map((column, index) => (
+                <SimpleGrid key={index} columns={1} gap="24px" height="100%">
+                  {column.content.map((photo) => (
+                    <ImageTile
+                      key={photo.id + Math.floor(Math.random() * 10000)}
+                      src={photo}
+                    />
+                  ))}
+                </SimpleGrid>
+              ))
+            ) : (
+              <SimpleGrid columns={1} gap="24px" height="100%">
+                {columns.map((column, index) =>
+                  column.content.map((photo) => (
+                    <ImageTile
+                      key={photo.id + Math.floor(Math.random() * 10000)}
+                      src={photo}
+                    />
+                  ))
+                )}
               </SimpleGrid>
-            ))}
-
-            {/* <SimpleGrid columns={3}>
-          {data.pages.map((page, index) => (
-            <React.Fragment key={index}>
-              {page.map((photo) => (
-                <ImageTile key={photo.id} src={photo} />
-              ))}
-            </React.Fragment>
-            </SimpleGrid>
-          ))} */}
+            )}
           </Flex>
         </React.Fragment>
       </Center>
