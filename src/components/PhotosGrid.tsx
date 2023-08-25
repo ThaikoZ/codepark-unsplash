@@ -11,11 +11,17 @@ interface Column {
   content: Photo[];
 }
 
-const PhotosGrid = () => {
+interface Props {
+  query?: string;
+}
+
+const PhotosGrid = ({ query }: Props) => {
   const pageSize = 12;
   const { data, error, isLoading, fetchNextPage, hasNextPage } = usePhotos({
     pageSize,
+    query,
   });
+  console.log(data);
   const [columns, setColumns] = useState<Column[]>([
     { content: [] },
     { content: [] },
@@ -35,13 +41,22 @@ const PhotosGrid = () => {
       { content: [] },
     ];
 
-    columns.map((column, columnId) => {
-      data?.pages.map((page, pageId) => {
-        for (let i = columnId * 4; i < columnId * 4 + 4; i++) {
-          column.content.push({ ...data.pages[pageId][i] });
-        }
+    if (query)
+      columns.map((column, columnId) => {
+        data?.pages.map((page, pageId) => {
+          for (let i = columnId * 4; i < columnId * 4 + 4; i++) {
+            column.content.push({ ...data.pages[pageId].results[i] });
+          }
+        });
       });
-    });
+    else
+      columns.map((column, columnId) => {
+        data?.pages.map((page, pageId) => {
+          for (let i = columnId * 4; i < columnId * 4 + 4; i++) {
+            column.content.push({ ...data.pages[pageId][i] });
+          }
+        });
+      });
 
     setColumns(columns);
   };
@@ -62,6 +77,7 @@ const PhotosGrid = () => {
       next={() => fetchNextPage()}
       loader={<CustomSpinner />}
       style={{ overflow: "hidden" }}
+      // endMessage={<Footer />}
     >
       <Center height="100%" width="100%" marginTop="48px">
         <React.Fragment>
@@ -87,6 +103,7 @@ const PhotosGrid = () => {
               <SimpleGrid columns={1} gap="24px" height="100%">
                 {columns.map((column, index) =>
                   column.content.map((photo) => (
+                    // TODO: Render different component
                     <ImageTile
                       key={photo.id + Math.floor(Math.random() * 10000)}
                       src={photo}

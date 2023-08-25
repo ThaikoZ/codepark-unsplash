@@ -15,17 +15,29 @@ export interface Photo {
 
 interface PostQuery {
   pageSize: number;
+  query: string | undefined;
 }
 
 const usePhotos = (query: PostQuery) => {
   const fetchData = ({ pageParam = 1 }) =>
     apiClient
-      .get<Photo[]>("/photos", {
-        params: {
-          page: (pageParam - 1) * query.pageSize,
-          per_page: query.pageSize,
-        },
-      })
+      .get<Photo[]>(
+        query.query ? "/search/photos" : "/photos",
+        query.query
+          ? {
+              params: {
+                page: (pageParam - 1) * query.pageSize,
+                per_page: query.pageSize,
+                query: query.query,
+              },
+            }
+          : {
+              params: {
+                page: (pageParam - 1) * query.pageSize,
+                per_page: query.pageSize,
+              },
+            }
+      )
       .then((res) => res.data);
 
   return useInfiniteQuery<Photo[], Error>({

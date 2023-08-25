@@ -8,13 +8,7 @@ const Topics = () => {
   if (error) return;
 
   return (
-    <Flex
-      gap={4}
-      overflow="hidden"
-      alignItems="center"
-      height="50%"
-      paddingX={4}
-    >
+    <Flex gap={4} overflow="hidden" alignItems="center" paddingX={4}>
       <NavLink href="#">Editorial</NavLink>
       <NavLink href="#">Following</NavLink>
       <NavLink href="#">Unsplash+</NavLink>

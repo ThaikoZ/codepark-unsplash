@@ -2,10 +2,12 @@ import ReactDOM from "react-dom/client";
 import { CSSReset, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import App from "./App.tsx";
+import App from "./pages/HomePage.tsx";
 import "./index.css";
 import theme from "./themes/theme.ts";
 import "./styles/styles.scss";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <CSSReset />
     <QueryClientProvider client={queryClient}>
-      <App />
+      <RouterProvider router={router} />
       <ReactQueryDevtools />
     </QueryClientProvider>
   </ChakraProvider>

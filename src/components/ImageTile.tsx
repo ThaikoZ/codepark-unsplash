@@ -10,7 +10,6 @@ const ImageTile = ({ src }: Props) => {
   const [isHoverd, setHoverd] = useState(false);
 
   // TODO: Add buttons to a hovered tile
-  // TODO: Add version for sm screen size
   return (
     <Box
       onMouseEnter={() => setHoverd(true)}

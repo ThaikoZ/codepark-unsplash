@@ -23,8 +23,9 @@ const WrappedMenu = () => {
         _active={{ color: "#111" }}
       />
       <MenuList aria-orientation="horizontal">
-        <MenuItem>Options</MenuItem>
-        <MenuItem>Options2</MenuItem>
+        <MenuItem>Company</MenuItem>
+        <MenuItem>Product</MenuItem>
+        <MenuItem>Community</MenuItem>
       </MenuList>
     </Menu>
   );

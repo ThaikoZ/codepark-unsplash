@@ -17,6 +17,7 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { BsX, BsQrCodeScan } from "react-icons/bs";
 import useTags from "../hooks/useTags";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   barWidth: string;
@@ -30,13 +31,15 @@ interface Props {
 }
 
 const SearchInput = (style: Props) => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [isPopover, setPopover] = useBoolean(false);
-  const { tags, error, isLoading } = useTags(searchQuery);
-  const [searchHints, setSearchHints] = useState<string[]>([]);
+  const { tags, error } = useTags(searchQuery);
 
-  const handleSubmit = (word?: string) => {
+  const handleSubmit = (word: string = searchQuery) => {
     console.log("Sent to the server: " + (word || searchQuery || null));
+
+    if (word) navigate(`/search/${word}`);
   };
 
   const handleQrCode = () => {

@@ -1,17 +1,17 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import Navbar from "./components/Navbar";
-import Topics from "./components/Topics";
-import HeroBanner from "./components/HeroBanner";
-import PhotosGrid from "./components/PhotosGrid";
-import Footer from "./components/Footer";
+import Navbar from "../components/Navbar";
+import Topics from "../components/Topics";
+import HeroBanner from "../components/HeroBanner";
+import PhotosGrid from "../components/PhotosGrid";
+import Footer from "../components/Footer";
 
 function App() {
   return (
     <Grid
       templateAreas={`"navbar"
-                  "main"
-                  "photos"
-                  "footer"`}
+              "main"
+              "photos"
+              "footer"`}
       gridTemplateRows={{
         base: "118px 368px 1fr 250px",
         md: "118px 593px 1fr 250px",
